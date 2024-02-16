@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.scss";
+import { backendData } from "./data";
+import { Item } from "./types";
+import ItemComponent from "./Components/Item/Item";
 
-function App() {
+const App = () => {
+  const [data, setData] = useState<any>(null);
+
+  const fetchData = () => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 100, backendData);
+    });
+  };
+
+  useEffect(() => {
+    fetchData().then((data) => setData(data));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data && data.map((item: Item) => <ItemComponent item={item} />)}
     </div>
   );
-}
+};
 
 export default App;
