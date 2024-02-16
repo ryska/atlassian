@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {data && data.map((item: Item) => <ItemComponent item={item} />)}
+      {data && data.map((item: Item) => <ItemComponent key={item.id} item={item} />)}
     </div>
   );
 };
